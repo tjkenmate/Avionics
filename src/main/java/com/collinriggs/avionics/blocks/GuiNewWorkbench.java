@@ -17,7 +17,7 @@ import net.minecraft.world.World;
  * - TheDragonTeam
  */
 public class GuiNewWorkbench extends GuiContainer {
-    private static final ResourceLocation ARP_WORKBENCH_GUI_TEXTURES = new ResourceLocation("modsquad:textures/gui/container/gui_workbench.png");//TODO replace armorplus with your mod and the location
+    private static final ResourceLocation ARP_WORKBENCH_GUI_TEXTURES = new ResourceLocation("modsquad:textures/gui/container/gui_workbench.png");
 
     public GuiNewWorkbench(InventoryPlayer playerInv, World worldIn) {
         super(new ContainerNewWorkbench(playerInv, worldIn));

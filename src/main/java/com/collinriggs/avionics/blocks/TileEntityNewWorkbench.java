@@ -1,7 +1,3 @@
-/*
- * Copyright (c) TheDragonTeam 2016.
- */
-
 package com.collinriggs.avionics.blocks;
 
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,16 +14,8 @@ import net.minecraft.util.text.TextComponentTranslation;
 
 import javax.annotation.Nullable;
 
-/**
- * net.thedragonteam.armorplus.tileentity
- * ArmorPlus created by sokratis12GR on 6/19/2016 12:36 AM.
- * - TheDragonTeam
- */
 public class TileEntityNewWorkbench extends TileEntity implements IInventory {
 
-    /**
-     * the amount of slots for the crafting grid
-     */
     public ItemStack[] inventory = new ItemStack[8];
     public String customName;
 
@@ -45,7 +33,7 @@ public class TileEntityNewWorkbench extends TileEntity implements IInventory {
 
     @Override
     public String getName() {
-        return this.hasCustomName() ? this.customName : "container.modsquad.workbench";
+        return this.hasCustomName() ? this.customName : "container.avionics.workbench";
     }
 
     @Override
@@ -58,9 +46,6 @@ public class TileEntityNewWorkbench extends TileEntity implements IInventory {
         return this.hasCustomName() ? new TextComponentString(this.getName()) : new TextComponentTranslation(this.getName());
     }
 
-    /**
-     * @return int the size of the inventory Crafting Grid (x * y) + Output
-     */
     @Override
     public int getSizeInventory() {
         return 10;
@@ -107,6 +92,7 @@ public class TileEntityNewWorkbench extends TileEntity implements IInventory {
         }
     }
 
+
     @Override
     public void setInventorySlotContents(int index, ItemStack stack) {
         if (index < 0 || index >= this.getSizeInventory())
@@ -130,10 +116,7 @@ public class TileEntityNewWorkbench extends TileEntity implements IInventory {
         this.setInventorySlotContents(index, null);
         return stack;
     }
-
-    /**
-     * @return the stack limit for a slot
-     */
+    
     @Override
     public int getInventoryStackLimit() {
         return 64;
@@ -212,8 +195,6 @@ public class TileEntityNewWorkbench extends TileEntity implements IInventory {
             this.setCustomName(nbt.getString("CustomName"));
         }
     }
-
-    //getUpdateTag, onDataTag, getUpdatePacket, onDataPacket
 
     @Override
     public NBTTagCompound getUpdateTag() {

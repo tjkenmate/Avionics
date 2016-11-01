@@ -1,7 +1,3 @@
-/*
- * Copyright (c) TheDragonTeam 2016.
- */
-
 package com.collinriggs.avionics.blocks;
 
 import net.minecraft.entity.player.EntityPlayer;

@@ -1,19 +1,19 @@
 package com.collinriggs.avionics.blocks;
 
-import static net.minecraftforge.fml.common.registry.GameRegistry.registerTileEntity;
-
-import net.minecraft.block.Block;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ModBlocks {
-	
-	public static Block newWorkbench;
-	
-	public static void init() {
-		newWorkbench = new NewCraftingTable();
-	}
-	
-	public static void register() {
-		registerTileEntity(TileEntityNewWorkbench.class, "modBench");
-	}
+
+    public static NewCraftingTable newWorkbench;
+
+    public static void init() {
+        newWorkbench = new NewCraftingTable();
+    }
+
+    @SideOnly(Side.CLIENT)
+    public static void initModels() {
+        newWorkbench.initModel();
+    }
 
 }

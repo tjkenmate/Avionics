@@ -1,7 +1,6 @@
 package com.collinriggs.avionics;
 
 import com.collinriggs.avionics.blocks.GuiHandler;
-import com.collinriggs.avionics.blocks.ModBlocks;
 import com.collinriggs.avionics.proxy.CommonProxy;
 
 import net.minecraftforge.fml.common.Mod;
@@ -23,18 +22,17 @@ public class Avionics {
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-		proxy.preInit();
-		
-		ModBlocks.init();
-		ModBlocks.register();
+		proxy.preInit(event);
+
+		//ModBlocks.init();
+		//ModBlocks.register();
 		
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
 	}
-	
+
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
-		proxy.init();
+		proxy.init(event);
 		//Crafting
 	}
-	
 }

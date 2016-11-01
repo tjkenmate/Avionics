@@ -1,2 +1,3 @@
-container.modsquad.workbench=Workbench
-container.modsquad.inventory=Inventory
+tile.workbench.name=Avionic Table
+container.avionics.workbench=Avionic Table
+container.avionics.inventory=Inventory

@@ -1,7 +1,3 @@
-/*
- * Copyright (c) TheDragonTeam 2016.
- */
-
 package com.collinriggs.avionics.blocks;
 
 import javax.annotation.Nullable;
@@ -19,9 +15,6 @@ import net.minecraft.world.World;
 
 public class ContainerNewWorkbench extends Container {
 
-    /**
-     * The crafting matrix inventory (3x3).
-     */
     public InventoryCrafting craftMatrix = new InventoryCrafting(this, 3, 3);
     public IInventory craftResult = new InventoryCraftResult();
 
@@ -54,9 +47,6 @@ public class ContainerNewWorkbench extends Container {
         return true;
     }
 
-    /**
-     * Callback for when the crafting matrix is changed.
-     */
     public void onCraftMatrixChanged(IInventory inventoryIn) {
         this.craftResult.setInventorySlotContents(0, WorkbenchCraftingManager.getInstance().findMatchingRecipe(this.craftMatrix, this.worldObj));
 
@@ -72,9 +62,6 @@ public class ContainerNewWorkbench extends Container {
 
     }
 
-    /**
-     * Called when the container is closed.
-     */
     public void onContainerClosed(EntityPlayer playerIn) {
         super.onContainerClosed(playerIn);
 
@@ -89,9 +76,6 @@ public class ContainerNewWorkbench extends Container {
         }
     }
 
-    /**
-     * Take a stack from the specified inventory slot.
-     */
     @Nullable
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
         ItemStack itemstack = null;
@@ -135,10 +119,6 @@ public class ContainerNewWorkbench extends Container {
         return itemstack;
     }
 
-    /**
-     * Called to determine if the current slot is valid for the stack merging (double-click) code. The stack passed in
-     * is null for the initial slot that was double-clicked.
-     */
     public boolean canMergeSlot(ItemStack stack, Slot slotIn) {
         return slotIn.inventory != this.craftResult && super.canMergeSlot(stack, slotIn);
     }

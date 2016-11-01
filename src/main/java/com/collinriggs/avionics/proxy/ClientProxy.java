@@ -1,17 +1,26 @@
 package com.collinriggs.avionics.proxy;
 
-public class ClientProxy implements CommonProxy {
+import com.collinriggs.avionics.blocks.ModBlocks;
 
-	@Override
-	public void preInit() {
-	}
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-	@Override
-	public void init() {
-	}
+public class ClientProxy extends CommonProxy {
 
-	@Override
-	public void postInit() {
-	}
+    @Override
+    public void preInit(FMLPreInitializationEvent e) {
+        super.preInit(e);
+        ModBlocks.initModels();
+    }
 
+    @Override
+    public void init(FMLInitializationEvent e) {
+        super.init(e);
+    }
+
+    @Override
+    public void postInit(FMLPostInitializationEvent e) {
+        super.postInit(e);
+    }
 }

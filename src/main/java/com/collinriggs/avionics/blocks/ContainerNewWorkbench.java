@@ -2,6 +2,8 @@ package com.collinriggs.avionics.blocks;
 
 import javax.annotation.Nullable;
 
+import com.collinriggs.avionics.recipe.WorkbenchCraftingManager;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;

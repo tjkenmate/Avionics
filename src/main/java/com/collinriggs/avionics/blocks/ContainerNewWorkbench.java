@@ -13,6 +13,7 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.inventory.SlotCrafting;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.world.World;
 
 public class ContainerNewWorkbench extends Container {
@@ -50,8 +51,13 @@ public class ContainerNewWorkbench extends Container {
     }
 
     public void onCraftMatrixChanged(IInventory inventoryIn) {
-        this.craftResult.setInventorySlotContents(0, WorkbenchCraftingManager.getInstance().findMatchingRecipe(this.craftMatrix, this.worldObj));
-
+        ItemStack toCraft = WorkbenchCraftingManager.getInstance().findMatchingRecipe(this.craftMatrix, this.worldObj);
+        if (toCraft == null)
+        {
+            // test for Vanilla Recipe
+            toCraft = CraftingManager.getInstance().findMatchingRecipe(this.craftMatrix, this.worldObj);
+        }
+        this.craftResult.setInventorySlotContents(0, toCraft);
     }
 
     @Nullable
@@ -61,7 +67,6 @@ public class ContainerNewWorkbench extends Container {
             getSlotFromInventory(inv, slotIn).inventory.clear();
         }
         return super.getSlotFromInventory(inv, slotIn);
-
     }
 
     public void onContainerClosed(EntityPlayer playerIn) {

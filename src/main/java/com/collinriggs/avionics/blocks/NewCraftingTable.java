@@ -8,6 +8,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -23,16 +24,19 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class NewCraftingTable extends Block {
-
-    TileEntityNewWorkbench tileEntityWorkbench;
+    // TileEntityNewWorkbench tileEntityWorkbench;
 
     public NewCraftingTable() {
         super(Material.ROCK);
+
         setUnlocalizedName("workbench");
         setResistance(1000.0F);
         setHardness(10.0F);
         setHarvestLevel("pickaxe", 2);
         setRegistryName("workbench");
+
+        setCreativeTab(CreativeTabs.MISC);
+
         GameRegistry.register(this);
         GameRegistry.register(new ItemBlock(this), getRegistryName());
     }
@@ -44,7 +48,7 @@ public class NewCraftingTable extends Block {
 
     @Override
     public TileEntity createTileEntity(World world, IBlockState state) {
-        return tileEntityWorkbench;
+        return new TileEntityNewWorkbench(); // tileEntityWorkbench;
     }
 
     @Override

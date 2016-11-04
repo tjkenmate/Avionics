@@ -6,20 +6,44 @@ import com.collinriggs.avionics.recipe.WorkbenchCraftingManager;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCraftResult;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.inventory.SlotCrafting;
+import net.minecraft.item.ItemBook;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.world.World;
+import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.items.SlotItemHandler;
 
 public class ContainerNewWorkbench extends Container {
 
     public InventoryCrafting craftMatrix = new InventoryCrafting(this, 3, 3);
     public IInventory craftResult = new InventoryCraftResult();
+    public ItemStackHandler bookSlot = new ItemStackHandler() {
+        @Override
+        public void setStackInSlot(int slot, ItemStack stack) {
+            if (false == ContainerNewWorkbench.this.isValidBook(stack)) {
+                return;
+            }
+            super.setStackInSlot(slot, stack);
+            ContainerNewWorkbench.this.onCraftMatrixChanged(ContainerNewWorkbench.this.craftMatrix);
+        }
+
+        @Override
+        public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
+            if (false == ContainerNewWorkbench.this.isValidBook(stack)) {
+                return stack;
+            }
+            ItemStack result = super.insertItem(slot, stack, simulate);
+            ContainerNewWorkbench.this.onCraftMatrixChanged(ContainerNewWorkbench.this.craftMatrix);
+            return result;
+        }
+    };
 
     private World worldObj;
 
@@ -44,6 +68,12 @@ public class ContainerNewWorkbench extends Container {
         }
 
         this.onCraftMatrixChanged(this.craftMatrix);
+
+        this.addSlotToContainer(new SlotItemHandler(this.bookSlot, 0, 8, 35));
+    }
+
+    private boolean isValidBook(ItemStack stack) {
+        return (stack != null) && (stack.getItem() == Items.BOOK);
     }
 
     public boolean canInteractWith(EntityPlayer playerIn) {
@@ -51,7 +81,11 @@ public class ContainerNewWorkbench extends Container {
     }
 
     public void onCraftMatrixChanged(IInventory inventoryIn) {
-        ItemStack toCraft = WorkbenchCraftingManager.getInstance().findMatchingRecipe(this.craftMatrix, this.worldObj);
+        ItemStack toCraft = null;
+        if (this.isValidBook(this.bookSlot.getStackInSlot(0))) {
+            // only handle custom recipes if we have a book
+            toCraft = WorkbenchCraftingManager.getInstance().findMatchingRecipe(this.craftMatrix, this.worldObj);
+        }
         if (toCraft == null)
         {
             // test for Vanilla Recipe
@@ -79,6 +113,10 @@ public class ContainerNewWorkbench extends Container {
                 if (itemstack != null) {
                     playerIn.dropItem(itemstack, false);
                 }
+            }
+            ItemStack bookStack = this.bookSlot.getStackInSlot(0);
+            if (bookStack != null) {
+                playerIn.dropItem(bookStack, false);
             }
         }
     }

@@ -15,8 +15,7 @@ import net.minecraft.util.text.TextComponentTranslation;
 import javax.annotation.Nullable;
 
 public class TileEntityNewWorkbench extends TileEntity implements IInventory {
-
-    public ItemStack[] inventory = new ItemStack[8];
+    public ItemStack[] inventory;
     public String customName;
 
     public TileEntityNewWorkbench() {
@@ -48,7 +47,7 @@ public class TileEntityNewWorkbench extends TileEntity implements IInventory {
 
     @Override
     public int getSizeInventory() {
-        return 10;
+        return 11;
     }
 
     @Override
@@ -60,9 +59,9 @@ public class TileEntityNewWorkbench extends TileEntity implements IInventory {
         return this.inventory[index];
     }
 
-    public ItemStack[] getInventory() {
-        return inventory;
-    }
+//    public ItemStack[] getInventory() {
+//        return this.inventory;
+//    }
 
     @Override
     public ItemStack decrStackSize(int index, int count) {
@@ -91,7 +90,6 @@ public class TileEntityNewWorkbench extends TileEntity implements IInventory {
             return null;
         }
     }
-
 
     @Override
     public void setInventorySlotContents(int index, ItemStack stack) {

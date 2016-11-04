@@ -19,6 +19,7 @@ import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.world.World;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class ContainerNewWorkbench extends Container {
 
@@ -31,7 +32,6 @@ public class ContainerNewWorkbench extends Container {
                 return;
             }
             super.setStackInSlot(slot, stack);
-            ContainerNewWorkbench.this.onCraftMatrixChanged(ContainerNewWorkbench.this.craftMatrix);
         }
 
         @Override
@@ -40,8 +40,12 @@ public class ContainerNewWorkbench extends Container {
                 return stack;
             }
             ItemStack result = super.insertItem(slot, stack, simulate);
-            ContainerNewWorkbench.this.onCraftMatrixChanged(ContainerNewWorkbench.this.craftMatrix);
             return result;
+        }
+
+        @Override
+        protected void onContentsChanged(int slot) {
+            ContainerNewWorkbench.this.onCraftMatrixChanged(ContainerNewWorkbench.this.craftMatrix);
         }
     };
 
@@ -73,7 +77,7 @@ public class ContainerNewWorkbench extends Container {
     }
 
     private boolean isValidBook(ItemStack stack) {
-        return (stack != null) && (stack.getItem() == Items.BOOK);
+        return OreDictionary.itemMatches(new ItemStack(Items.BOOK, 1), stack, false);
     }
 
     public boolean canInteractWith(EntityPlayer playerIn) {

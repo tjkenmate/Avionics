@@ -50,8 +50,8 @@ public class CommonProxy {
             if (state != null) {
                 Block block = state.getBlock();
                 if (block != null) {
-                    if (((block == Blocks.FURNACE) || (block.getRegistryName().equals(Blocks.FURNACE.getRegistryName())))
-                            || ((block == Blocks.CRAFTING_TABLE) || (block.getRegistryName().equals(Blocks.CRAFTING_TABLE.getRegistryName())))) {
+                    if ((Avionics.disableFurnace && ((block == Blocks.FURNACE) || (block.getRegistryName().equals(Blocks.FURNACE.getRegistryName()))))
+                            || (Avionics.disableCraftingTable && ((block == Blocks.CRAFTING_TABLE) || (block.getRegistryName().equals(Blocks.CRAFTING_TABLE.getRegistryName()))))) {
                         e.setCanceled(true);
                         this.log.info("Denied access to: '" + block.getRegistryName() + "'.");
                     }

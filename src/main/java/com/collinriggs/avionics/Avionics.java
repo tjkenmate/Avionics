@@ -14,6 +14,9 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 @Mod(modid = Ref.modid, name = Ref.modname, version = Ref.version)
 public class Avionics {
 	
+	public static boolean disableFurnace = false;
+	public static boolean disableCraftingTable = false;
+	
 	@Instance(value = Ref.modid)
 	public static Avionics instance;
 	
@@ -22,6 +25,14 @@ public class Avionics {
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
+		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
+
+        	config.load();
+		
+		disableCraftingTable = config.getBoolean("disableCraftingTable", Configuration.CATEGORY_GENERAL, false, "Disables Crafting Table");
+		disableFurnace = config.getBoolean("disableFurnace", Configuration.CATEGORY_GENERAL, false, "Disables Furnace");
+		
+        	config.save();
 		proxy.preInit(event);
 
 		//ModBlocks.init();
